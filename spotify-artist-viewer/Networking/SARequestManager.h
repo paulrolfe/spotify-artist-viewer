@@ -6,6 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SAArtist.h"
+
 
 @interface SARequestManager : NSObject
 
@@ -14,5 +16,9 @@
 - (void)getArtistsWithQuery:(NSString *)query
                     success:(void (^)(NSArray *artists))success
                     failure:(void (^)(NSError *error))failure;
+
+- (void)getFullArtistFromArtist:(SAArtist *)artist
+                         success:(void (^)(SAArtist *artist))success
+                         failure:(void (^)(NSError *error))failure;
 
 @end

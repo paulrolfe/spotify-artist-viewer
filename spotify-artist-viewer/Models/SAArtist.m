@@ -9,4 +9,15 @@
 
 @implementation SAArtist
 
+- (instancetype) initWithDictionary:(NSDictionary *)artistDictionary{
+    if (self = [super init]){
+        //setup here
+        self.name = artistDictionary[@"name"];
+        self.spotifyURI = artistDictionary[@"uri"];
+        self.imageURL = [(NSDictionary *)[(NSArray *)artistDictionary[@"images"] firstObject] objectForKey:@"url"];
+        self.bio = @"Loading...";
+    }
+    return self;
+}
+
 @end

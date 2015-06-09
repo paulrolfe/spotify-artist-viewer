@@ -9,4 +9,12 @@
 
 @interface SAArtist : NSObject
 
+@property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) NSString * bio;
+@property (nonatomic, strong) NSString * imageURL;
+@property (nonatomic, strong) NSString * spotifyURI;
+
+
+- (instancetype) initWithDictionary:(NSDictionary *)artistDictionary;
+
 @end
