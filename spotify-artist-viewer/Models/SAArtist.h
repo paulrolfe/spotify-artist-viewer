@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSString * bio;
 @property (nonatomic, strong) NSString * imageURL;
 @property (nonatomic, strong) NSString * spotifyURI;
+@property (nonatomic, strong) NSNumber * popularity;
 
 
 - (instancetype) initWithDictionary:(NSDictionary *)artistDictionary;

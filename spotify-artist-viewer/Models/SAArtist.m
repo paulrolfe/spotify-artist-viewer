@@ -16,6 +16,7 @@
         self.spotifyURI = artistDictionary[@"uri"];
         self.imageURL = [(NSDictionary *)[(NSArray *)artistDictionary[@"images"] firstObject] objectForKey:@"url"];
         self.bio = @"Loading...";
+        self.popularity = artistDictionary[@"popularity"];
     }
     return self;
 }

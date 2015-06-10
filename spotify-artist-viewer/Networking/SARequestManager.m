@@ -7,6 +7,8 @@
 
 #import "SARequestManager.h"
 #import "AFNetworking.h"
+#import "NSURL+queryDictionary.h"
+
 
 NSString const * BASE_URL_SPOTIFY = @"https://api.spotify.com/v1/search";
 NSString const * ECHONEST_API_KEY = @"DXRM3NA4WII8WVHGF";
@@ -24,23 +26,27 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
 }
 
 - (void)getArtistsWithQuery:(NSString *)query
-                    success:(void (^)(NSArray *artists))success
+                    success:(void (^)(NSArray *artists, NSString *query))success
                     failure:(void (^)(NSError *error))failure {
     if ([query isEqualToString:@""]){
-        success(nil);
+        success(nil,nil);
     }
     else{
-        NSString * request = [NSString stringWithFormat:@"%@?q=%@&type=artist",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=artist",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary * queryDict = [NSURL URLWithString:responseObject[@"artists"][@"href"]].queryDictionary;
             NSMutableArray * artistArray = [[NSMutableArray alloc] init];
             NSArray * responseArray = responseObject[@"artists"][@"items"];
             for (NSDictionary *artistDict in responseArray){
                 SAArtist * artist =[[SAArtist alloc] initWithDictionary:artistDict];
                 [artistArray addObject:artist];
             }
-            success(artistArray);
+            
+            NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
+            [artistArray sortUsingDescriptors:@[sortPop]];
+            success(artistArray,queryDict[@"query"]);
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
@@ -48,7 +54,71 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
         }];
     }
 }
-- (void) getFullArtistFromArtist:(SAArtist *)artist
+- (void)getTracksWithQuery:(NSString *)query
+                    success:(void (^)(NSArray *tracks, NSString *query))success
+                    failure:(void (^)(NSError *error))failure {
+    if ([query isEqualToString:@""]){
+        success(nil,nil);
+    }
+    else{
+        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=track",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary * queryDict = [NSURL URLWithString:responseObject[@"tracks"][@"href"]].queryDictionary;
+            NSMutableArray * trackArray = [[NSMutableArray alloc] init];
+            NSArray * responseArray = responseObject[@"tracks"][@"items"];
+            for (NSDictionary *trackDict in responseArray){
+                SATrack * track=[[SATrack alloc] initWithDictionary:trackDict];
+                [trackArray addObject:track];
+            }
+            NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
+            [trackArray sortUsingDescriptors:@[sortPop]];
+            success(trackArray,queryDict[@"query"]);
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            failure(error);
+        }];
+    }
+}
+- (void) getAllResultsFromQuery:(NSString *)query
+                        success:(void (^)(NSArray *results, NSString *query))success
+                        failure:(void (^)(NSError *error))failure {
+    if ([query isEqualToString:@""]){
+        success(nil,query);
+    }
+    else{
+        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=track,artist",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary * queryDict = [NSURL URLWithString:responseObject[@"tracks"][@"href"]].queryDictionary;
+            
+            NSMutableArray * allArray = [[NSMutableArray alloc] init];
+            NSArray * artistArray = responseObject[@"artists"][@"items"];
+            for (NSDictionary *artistDict in artistArray){
+                SAArtist * artist =[[SAArtist alloc] initWithDictionary:artistDict];
+                [allArray addObject:artist];
+            }
+            NSArray * trackArray = responseObject[@"tracks"][@"items"];
+            for (NSDictionary *trackDict in trackArray){
+                SATrack * track=[[SATrack alloc] initWithDictionary:trackDict];
+                [allArray addObject:track];
+            }
+            //sort by popularity
+            NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
+            [allArray sortUsingDescriptors:@[sortPop]];
+            success(allArray,queryDict[@"query"]);
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            failure(error);
+        }];
+    }
+    
+}
+- (void) getBioForArtist:(SAArtist *)artist
                          success:(void (^)(SAArtist *artist))success
                          failure:(void (^)(NSError *error))failure
 
@@ -70,5 +140,6 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
     }];
     
 }
+
 
 @end

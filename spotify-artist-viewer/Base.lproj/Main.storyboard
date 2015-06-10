@@ -13,16 +13,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="prominent" placeholder="Search Spotify Artists" id="SnT-qC-hfc">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="prominent" placeholder="Search Spotify" showsScopeBar="YES" id="SnT-qC-hfc">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                            <scopeButtonTitles>
+                                <string>All</string>
+                                <string>Artist</string>
+                                <string>Track</string>
+                            </scopeButtonTitles>
                             <connections>
                                 <outlet property="delegate" destination="Em8-UT-M8U" id="Gvf-Tu-B2x"/>
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="resultCell" textLabel="jkp-Ve-rp0" style="IBUITableViewCellStyleDefault" id="8yA-Mv-jbH">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="resultCell" textLabel="jkp-Ve-rp0" detailTextLabel="tfY-AY-NcM" imageView="z5S-l3-bjV" style="IBUITableViewCellStyleSubtitle" id="8yA-Mv-jbH">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8yA-Mv-jbH" id="XYD-gF-QSh">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -33,8 +39,59 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tfY-AY-NcM">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="track-placeholder.png" id="z5S-l3-bjV">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell" rowHeight="60" id="jit-G4-kaz" customClass="CustomTableViewCell">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jit-G4-kaz" id="Dxm-ds-PMj">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MainLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFo-nI-zie">
+                                            <rect key="frame" x="71" y="8" width="521" height="23"/>
+                                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="19"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DetailLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OPH-Fz-VFo">
+                                            <rect key="frame" x="71" y="33" width="80" height="14"/>
+                                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4j1-0K-CHE">
+                                            <rect key="frame" x="8" y="4" width="51" height="51"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="4j1-0K-CHE" secondAttribute="height" id="c36-Ss-r3n"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="jFo-nI-zie" firstAttribute="leading" secondItem="4j1-0K-CHE" secondAttribute="trailing" constant="12" id="HU3-qL-pTt"/>
+                                        <constraint firstItem="4j1-0K-CHE" firstAttribute="top" secondItem="Dxm-ds-PMj" secondAttribute="top" constant="4" id="Kz7-iF-yPS"/>
+                                        <constraint firstItem="OPH-Fz-VFo" firstAttribute="top" secondItem="jFo-nI-zie" secondAttribute="bottom" constant="2" id="OCS-1A-ROQ"/>
+                                        <constraint firstItem="jFo-nI-zie" firstAttribute="top" secondItem="Dxm-ds-PMj" secondAttribute="top" constant="8" id="Ssv-rZ-qde"/>
+                                        <constraint firstAttribute="trailing" secondItem="jFo-nI-zie" secondAttribute="trailing" constant="8" id="Thg-v9-M6t"/>
+                                        <constraint firstItem="OPH-Fz-VFo" firstAttribute="leading" secondItem="4j1-0K-CHE" secondAttribute="trailing" constant="12" id="aaw-WQ-say"/>
+                                        <constraint firstItem="4j1-0K-CHE" firstAttribute="leading" secondItem="Dxm-ds-PMj" secondAttribute="leading" constant="8" id="qdi-gn-dsp"/>
+                                        <constraint firstAttribute="bottom" secondItem="4j1-0K-CHE" secondAttribute="bottom" constant="4" id="r0H-g7-gul"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="detailLabel" destination="OPH-Fz-VFo" id="FcI-On-R5z"/>
+                                    <outlet property="mainLabel" destination="jFo-nI-zie" id="Qu0-Bc-IZ2"/>
+                                    <outlet property="sideImageView" destination="4j1-0K-CHE" id="ykT-h3-eUa"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -65,27 +122,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Au-fj-ODc">
-                                <rect key="frame" x="16" y="19" width="35" height="30"/>
+                                <rect key="frame" x="16" y="19" width="51" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="51" id="bwF-ZX-6Ok"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
                                 <state key="normal" title="Back">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="backTouched:" destination="TiQ-XD-Y0J" eventType="touchUpInside" id="Hlt-gV-Shh"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Artist Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hne-wU-gPq">
-                                <rect key="frame" x="247" y="58" width="109" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hne-wU-gPq">
+                                <rect key="frame" x="230" y="58" width="140" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="rnW-zD-wCo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="21"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n66-p6-aG0" customClass="APAvatarImageView">
-                                <rect key="frame" x="240" y="107" width="120" height="120"/>
+                                <rect key="frame" x="220" y="107" width="160" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="7cI-5E-gdi"/>
+                                    <constraint firstAttribute="width" constant="160" id="7cI-5E-gdi"/>
                                     <constraint firstAttribute="width" secondItem="n66-p6-aG0" secondAttribute="height" multiplier="1:1" id="BN4-jn-opW"/>
                                     <constraint firstAttribute="width" constant="240" id="eJa-Vv-B6M"/>
                                 </constraints>
@@ -96,13 +158,13 @@
                                 </variation>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oBn-WR-N2W">
-                                <rect key="frame" x="16" y="235" width="568" height="345"/>
+                                <rect key="frame" x="16" y="275" width="568" height="305"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="251" id="fZR-lz-eMr"/>
                                 </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -137,6 +199,141 @@
             </objects>
             <point key="canvasLocation" x="2150" y="393"/>
         </scene>
+        <!--Track View Controller-->
+        <scene sceneID="lEU-eB-WEc">
+            <objects>
+                <viewController storyboardIdentifier="trackVC" id="YDC-CZ-2bI" customClass="SATrackViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ihF-bz-FUo"/>
+                        <viewControllerLayoutGuide type="bottom" id="na0-ml-Rgy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bqO-hp-yGH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clp-cF-K1Y">
+                                <rect key="frame" x="16" y="20" width="51" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="51" id="kqu-Id-yg7"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="51" id="qrH-WI-j4H"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="qrH-WI-j4H"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="backTouched:" destination="YDC-CZ-2bI" eventType="touchUpInside" id="4ak-LM-nzd"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bMT-Q3-Lf4">
+                                <rect key="frame" x="8" y="59" width="584" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="Ftr-op-Acl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RgT-8l-zuu" customClass="APAvatarImageView">
+                                <rect key="frame" x="220" y="220" width="160" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="RgT-8l-zuu" secondAttribute="height" multiplier="1:1" id="3BY-F7-hqs"/>
+                                    <constraint firstAttribute="width" constant="160" id="4ho-Vo-uYt"/>
+                                    <constraint firstAttribute="height" constant="160" placeholder="YES" id="YRv-ac-GOw"/>
+                                    <constraint firstAttribute="width" constant="240" id="Zeq-Fd-lqx"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3BY-F7-hqs"/>
+                                        <exclude reference="4ho-Vo-uYt"/>
+                                        <exclude reference="Zeq-Fd-lqx"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2ok-a9-bPR">
+                                <rect key="frame" x="8" y="108" width="584" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="GBC-Vb-fF9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1vQ-04-PuG">
+                                <rect key="frame" x="8" y="140" width="584" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="TfI-Xy-E2g"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Wh-wp-ct0">
+                                <rect key="frame" x="240" y="388" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.46467009464766562" green="1" blue="0.1525233926091748" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="3JZ-wc-pCh"/>
+                                    <constraint firstAttribute="height" constant="30" id="LNw-v3-pPM"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Open in Spotify">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2ok-a9-bPR" firstAttribute="centerX" secondItem="bMT-Q3-Lf4" secondAttribute="centerX" id="3ZI-L5-IdI"/>
+                            <constraint firstAttribute="trailing" secondItem="bMT-Q3-Lf4" secondAttribute="trailing" constant="8" id="60F-2Q-ZOR"/>
+                            <constraint firstItem="RgT-8l-zuu" firstAttribute="top" secondItem="bMT-Q3-Lf4" secondAttribute="bottom" constant="8" id="G7Z-X0-Y2x"/>
+                            <constraint firstItem="RgT-8l-zuu" firstAttribute="width" secondItem="RgT-8l-zuu" secondAttribute="height" multiplier="1:1" id="GBk-G5-7GV"/>
+                            <constraint firstItem="RgT-8l-zuu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2ok-a9-bPR" secondAttribute="bottom" constant="20" id="KPt-mf-eRx"/>
+                            <constraint firstAttribute="trailing" secondItem="1vQ-04-PuG" secondAttribute="trailing" constant="8" id="M44-hk-W8g"/>
+                            <constraint firstAttribute="centerY" secondItem="RgT-8l-zuu" secondAttribute="centerY" id="MLT-Mf-sBQ"/>
+                            <constraint firstItem="bMT-Q3-Lf4" firstAttribute="leading" secondItem="bqO-hp-yGH" secondAttribute="leading" constant="8" id="Rii-nv-ZPC"/>
+                            <constraint firstItem="Clp-cF-K1Y" firstAttribute="top" secondItem="ihF-bz-FUo" secondAttribute="bottom" id="VcW-sP-fYu"/>
+                            <constraint firstItem="Clp-cF-K1Y" firstAttribute="leading" secondItem="bqO-hp-yGH" secondAttribute="leading" constant="16" id="Xcc-PY-xyM"/>
+                            <constraint firstItem="8Wh-wp-ct0" firstAttribute="top" secondItem="RgT-8l-zuu" secondAttribute="bottom" constant="8" id="Y8Z-PB-uLa"/>
+                            <constraint firstItem="2ok-a9-bPR" firstAttribute="centerX" secondItem="1vQ-04-PuG" secondAttribute="centerX" id="YVx-Zm-h58"/>
+                            <constraint firstAttribute="centerX" secondItem="bMT-Q3-Lf4" secondAttribute="centerX" id="Zdo-KP-IMR"/>
+                            <constraint firstItem="bMT-Q3-Lf4" firstAttribute="top" secondItem="ihF-bz-FUo" secondAttribute="bottom" constant="39" id="cE9-DV-oim"/>
+                            <constraint firstItem="bMT-Q3-Lf4" firstAttribute="centerX" secondItem="RgT-8l-zuu" secondAttribute="centerX" id="e6e-xt-DDq"/>
+                            <constraint firstAttribute="trailing" secondItem="2ok-a9-bPR" secondAttribute="trailing" constant="8" id="giT-jd-hMh"/>
+                            <constraint firstAttribute="centerX" secondItem="8Wh-wp-ct0" secondAttribute="centerX" id="hLF-9g-mQs"/>
+                            <constraint firstItem="1vQ-04-PuG" firstAttribute="leading" secondItem="bqO-hp-yGH" secondAttribute="leading" constant="8" id="ju1-Db-R9l"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RgT-8l-zuu" secondAttribute="trailing" constant="8" id="ju2-s0-Lwv"/>
+                            <constraint firstItem="1vQ-04-PuG" firstAttribute="top" secondItem="2ok-a9-bPR" secondAttribute="bottom" constant="8" id="o71-iV-Ybk"/>
+                            <constraint firstItem="2ok-a9-bPR" firstAttribute="leading" secondItem="bqO-hp-yGH" secondAttribute="leading" constant="8" id="u78-MZ-akG"/>
+                            <constraint firstItem="RgT-8l-zuu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1vQ-04-PuG" secondAttribute="bottom" constant="20" id="wwO-Kd-ew6"/>
+                            <constraint firstItem="2ok-a9-bPR" firstAttribute="top" secondItem="bMT-Q3-Lf4" secondAttribute="bottom" constant="8" id="yKk-KK-mvw"/>
+                            <constraint firstItem="RgT-8l-zuu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bqO-hp-yGH" secondAttribute="leading" constant="8" id="zqj-0i-ckq"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="G7Z-X0-Y2x"/>
+                                <exclude reference="KPt-mf-eRx"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="albumNameLabel" destination="1vQ-04-PuG" id="f43-Ee-9bq"/>
+                        <outlet property="artistNameLabel" destination="2ok-a9-bPR" id="Lfy-ER-JUl"/>
+                        <outlet property="backButton" destination="Clp-cF-K1Y" id="XpB-hc-BZK"/>
+                        <outlet property="openInSpotifyButton" destination="8Wh-wp-ct0" id="5y0-MO-eCd"/>
+                        <outlet property="trackImageView" destination="RgT-8l-zuu" id="qTh-1Y-G1O"/>
+                        <outlet property="trackNameLabel" destination="bMT-Q3-Lf4" id="U2D-tK-ra2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2fr-ip-8kb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2145" y="1090"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="OLT-RY-Cmi">
             <objects>
@@ -156,4 +353,7 @@
             <point key="canvasLocation" x="463" y="393"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="track-placeholder.png" width="256" height="256"/>
+    </resources>
 </document>

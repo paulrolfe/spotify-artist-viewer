@@ -1,58 +1,50 @@
 //
-//  SAArtistViewController.m
+//  SATrackViewController.m
 //  spotify-artist-viewer
 //
-//  Created by Paul Rolfe on 6/9/15.
+//  Created by Paul Rolfe on 6/10/15.
 //  Copyright (c) 2015 Intrepid. All rights reserved.
 //
 
-#import "SAArtistViewController.h"
-#import "APAvatarImageView.h"
-#import "SARequestManager.h"
-#import "UIImageView+CircleCrop.h"
+#import "SATrackViewController.h"
+#import <APAvatarImageView.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface SAArtistViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *artistName;
+
+@interface SATrackViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
-@property (weak, nonatomic) IBOutlet APAvatarImageView *artistImageView;
-@property (weak, nonatomic) IBOutlet UITextView *artistBioTextView;
+@property (weak, nonatomic) IBOutlet UILabel *trackNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *artistNameLabel;
+@property (weak, nonatomic) IBOutlet APAvatarImageView *trackImageView;
+@property (weak, nonatomic) IBOutlet UILabel *albumNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *openInSpotifyButton;
 
 @end
 
-@implementation SAArtistViewController
+@implementation SATrackViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.artistImageView setBorderWidth:1.0];
-    [[SARequestManager sharedManager] getBioForArtist:self.artist success:^(SAArtist *artist) {
-        if(artist.bio){
-            self.artist = artist;
-            [self displayInfo];
-        }
-    } failure:^(NSError *error) {
-        //Some error handling.
-    }];
     [self setupViews];
     [self displayInfo];
 }
 - (void) setupViews{
     [self.backButton setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     [self.backButton.layer setCornerRadius:4];
+    [self.openInSpotifyButton setBackgroundColor:[UIColor colorWithRed:0.66 green:0.81 blue:0 alpha:1]];
+    [self.openInSpotifyButton.layer setCornerRadius:15];
 }
 - (void) displayInfo{
-    [self.artistBioTextView setText:self.artist.bio];
-    [self.artistName setText:self.artist.name];
-    [self.artistImageView sd_setImageWithURL:[NSURL URLWithString:self.artist.imageURL] placeholderImage:[UIImage imageNamed:@"artist-placeholder"]];
+    [self.trackNameLabel setText:self.track.name];
+    [self.artistNameLabel setText:self.track.artistName];
+    [self.albumNameLabel setText:self.track.albumAppearsOn];
+    [self.trackImageView sd_setImageWithURL:[NSURL URLWithString:self.track.imageURL] placeholderImage:[UIImage imageNamed:@"track-placeholder"]];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 - (IBAction)backTouched:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }

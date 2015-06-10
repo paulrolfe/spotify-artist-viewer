@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C1FCB221B28839A0009E501 /* SATrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1FCB211B28839A0009E501 /* SATrack.m */; };
+		1C1FCB261B28BD6E0009E501 /* NSURL+queryDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1FCB251B28BD6E0009E501 /* NSURL+queryDictionary.m */; };
+		1C1FCB291B28C3180009E501 /* SATrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1FCB281B28C3180009E501 /* SATrackViewController.m */; };
+		1C1FCB2B1B28C6D30009E501 /* track-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C1FCB2A1B28C6D30009E501 /* track-placeholder.png */; };
+		1C1FCB2E1B28CB020009E501 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1FCB2D1B28CB020009E501 /* CustomTableViewCell.m */; };
 		1C901C621B275D5600A121C9 /* SASearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C901C611B275D5600A121C9 /* SASearchTableViewController.m */; };
 		1C901C651B275D6D00A121C9 /* SAArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C901C641B275D6D00A121C9 /* SAArtistViewController.m */; };
 		1C901C671B277A1400A121C9 /* artist-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C901C661B277A1400A121C9 /* artist-placeholder.png */; };
@@ -33,6 +38,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C1FCB201B28839A0009E501 /* SATrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SATrack.h; sourceTree = "<group>"; };
+		1C1FCB211B28839A0009E501 /* SATrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATrack.m; sourceTree = "<group>"; };
+		1C1FCB241B28BD6E0009E501 /* NSURL+queryDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+queryDictionary.h"; sourceTree = "<group>"; };
+		1C1FCB251B28BD6E0009E501 /* NSURL+queryDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+queryDictionary.m"; sourceTree = "<group>"; };
+		1C1FCB271B28C3180009E501 /* SATrackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SATrackViewController.h; sourceTree = "<group>"; };
+		1C1FCB281B28C3180009E501 /* SATrackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATrackViewController.m; sourceTree = "<group>"; };
+		1C1FCB2A1B28C6D30009E501 /* track-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "track-placeholder.png"; sourceTree = "<group>"; };
+		1C1FCB2C1B28CB020009E501 /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		1C1FCB2D1B28CB020009E501 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		1C901C601B275D5600A121C9 /* SASearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASearchTableViewController.h; sourceTree = "<group>"; };
 		1C901C611B275D5600A121C9 /* SASearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASearchTableViewController.m; sourceTree = "<group>"; };
 		1C901C631B275D6D00A121C9 /* SAArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAArtistViewController.h; sourceTree = "<group>"; };
@@ -79,9 +93,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C1FCB231B28B6100009E501 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1C901C601B275D5600A121C9 /* SASearchTableViewController.h */,
+				1C901C611B275D5600A121C9 /* SASearchTableViewController.m */,
+				1C901C631B275D6D00A121C9 /* SAArtistViewController.h */,
+				1C901C641B275D6D00A121C9 /* SAArtistViewController.m */,
+				1C1FCB271B28C3180009E501 /* SATrackViewController.h */,
+				1C1FCB281B28C3180009E501 /* SATrackViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		1C1FCB2F1B28CB080009E501 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1C1FCB2C1B28CB020009E501 /* CustomTableViewCell.h */,
+				1C1FCB2D1B28CB020009E501 /* CustomTableViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		1C901C681B277A1A00A121C9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1C1FCB2A1B28C6D30009E501 /* track-placeholder.png */,
 				1C901C661B277A1400A121C9 /* artist-placeholder.png */,
 			);
 			name = Images;
@@ -112,19 +149,19 @@
 			children = (
 				1C901C681B277A1A00A121C9 /* Images */,
 				2E7674501B2676CD00336867 /* Models */,
+				1C1FCB231B28B6100009E501 /* View Controllers */,
 				2E7674511B2676D400336867 /* Networking */,
 				2E76742E1B26766200336867 /* AppDelegate.h */,
 				2E76742F1B26766200336867 /* AppDelegate.m */,
-				1C901C601B275D5600A121C9 /* SASearchTableViewController.h */,
-				1C901C611B275D5600A121C9 /* SASearchTableViewController.m */,
-				1C901C631B275D6D00A121C9 /* SAArtistViewController.h */,
-				1C901C641B275D6D00A121C9 /* SAArtistViewController.m */,
 				2E7674341B26766200336867 /* Main.storyboard */,
 				2E7674371B26766200336867 /* Images.xcassets */,
 				2E7674391B26766200336867 /* LaunchScreen.xib */,
 				2E76742A1B26766200336867 /* Supporting Files */,
 				1C901C6C1B277F4400A121C9 /* UIImageView+CircleCrop.h */,
 				1C901C6D1B277F4400A121C9 /* UIImageView+CircleCrop.m */,
+				1C1FCB241B28BD6E0009E501 /* NSURL+queryDictionary.h */,
+				1C1FCB251B28BD6E0009E501 /* NSURL+queryDictionary.m */,
+				1C1FCB2F1B28CB080009E501 /* Views */,
 			);
 			path = "spotify-artist-viewer";
 			sourceTree = "<group>";
@@ -160,6 +197,8 @@
 			children = (
 				2E7674521B2676F400336867 /* SAArtist.h */,
 				2E7674531B2676F400336867 /* SAArtist.m */,
+				1C1FCB201B28839A0009E501 /* SATrack.h */,
+				1C1FCB211B28839A0009E501 /* SATrack.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -275,6 +314,7 @@
 			files = (
 				1C901C671B277A1400A121C9 /* artist-placeholder.png in Resources */,
 				2E7674361B26766200336867 /* Main.storyboard in Resources */,
+				1C1FCB2B1B28C6D30009E501 /* track-placeholder.png in Resources */,
 				2E76743B1B26766200336867 /* LaunchScreen.xib in Resources */,
 				2E7674381B26766200336867 /* Images.xcassets in Resources */,
 			);
@@ -329,9 +369,13 @@
 			files = (
 				2E7674541B2676F400336867 /* SAArtist.m in Sources */,
 				1C901C651B275D6D00A121C9 /* SAArtistViewController.m in Sources */,
+				1C1FCB291B28C3180009E501 /* SATrackViewController.m in Sources */,
 				1C901C621B275D5600A121C9 /* SASearchTableViewController.m in Sources */,
 				2E7674301B26766200336867 /* AppDelegate.m in Sources */,
+				1C1FCB2E1B28CB020009E501 /* CustomTableViewCell.m in Sources */,
 				2E76742D1B26766200336867 /* main.m in Sources */,
+				1C1FCB261B28BD6E0009E501 /* NSURL+queryDictionary.m in Sources */,
+				1C1FCB221B28839A0009E501 /* SATrack.m in Sources */,
 				2E7674571B26772600336867 /* SARequestManager.m in Sources */,
 				1C901C6E1B277F4400A121C9 /* UIImageView+CircleCrop.m in Sources */,
 			);
