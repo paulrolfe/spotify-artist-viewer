@@ -138,15 +138,19 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
 
 {
     
-    NSString * request = [NSString stringWithFormat:@"%@?api_key=%@&id=%@&results=1",BASE_URL_ECHONEST,ECHONEST_API_KEY,artist.spotifyURI];
+    NSString * request = [NSString stringWithFormat:@"%@?api_key=%@&id=%@",BASE_URL_ECHONEST,ECHONEST_API_KEY,artist.spotifyURI];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray * bioData = responseObject[@"response"][@"biographies"];
-        NSDictionary * bioDict = [bioData firstObject];
-        NSString * bio = bioDict[@"text"];
-        //SAArtist * copy = [artist copy];
-        //copy.bio = bio;
+        NSString * bio = @"Bio not found. Sorry!";
+        for (NSDictionary *bioDict in bioData){
+            //Find a bio, that's not truncated.
+            if (![bioDict valueForKey:@"truncated"]){
+                 bio = bioDict[@"text"];
+                 break;
+            }
+        }
         artist.bio = bio;
         success(artist);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -13,7 +13,7 @@
 #import "UIColor+SAColors.h"
 
 @interface SAArtistViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *artistName;
+@property (weak, nonatomic) IBOutlet UILabel *artistNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet APAvatarImageView *artistImageView;
 @property (weak, nonatomic) IBOutlet UITextView *artistBioTextView;
@@ -49,7 +49,8 @@
 }
 - (void) displayInfo{
     [self.artistBioTextView setText:self.artist.bio];
-    [self.artistName setText:self.artist.name];
+    [self.artistNameLabel setText:self.artist.name];
+    [self.artistNameLabel sizeToFit];
     [self.artistImageView sd_setImageWithURL:[NSURL URLWithString:self.artist.imageURL] placeholderImage:[UIImage imageNamed:@"artist-placeholder"]];
 }
 

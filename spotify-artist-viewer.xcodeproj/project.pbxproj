@@ -16,7 +16,7 @@
 		1C34E5271B29DF1500F2ADE4 /* UIColor+SAColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C34E5261B29DF1500F2ADE4 /* UIColor+SAColors.m */; };
 		1C34E52A1B29E28200F2ADE4 /* CircleShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C34E5291B29E28200F2ADE4 /* CircleShadowImageView.m */; };
 		1C34E52D1B29E7E600F2ADE4 /* SACircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C34E52C1B29E7E600F2ADE4 /* SACircleImageView.m */; };
-		1C901C621B275D5600A121C9 /* SASearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C901C611B275D5600A121C9 /* SASearchTableViewController.m */; };
+		1C901C621B275D5600A121C9 /* SASearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C901C611B275D5600A121C9 /* SASearchViewController.m */; };
 		1C901C651B275D6D00A121C9 /* SAArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C901C641B275D6D00A121C9 /* SAArtistViewController.m */; };
 		1C901C671B277A1400A121C9 /* artist-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C901C661B277A1400A121C9 /* artist-placeholder.png */; };
 		2E76742D1B26766200336867 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E76742C1B26766200336867 /* main.m */; };
@@ -57,8 +57,8 @@
 		1C34E5291B29E28200F2ADE4 /* CircleShadowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleShadowImageView.m; sourceTree = "<group>"; };
 		1C34E52B1B29E7E600F2ADE4 /* SACircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACircleImageView.h; sourceTree = "<group>"; };
 		1C34E52C1B29E7E600F2ADE4 /* SACircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACircleImageView.m; sourceTree = "<group>"; };
-		1C901C601B275D5600A121C9 /* SASearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASearchTableViewController.h; sourceTree = "<group>"; };
-		1C901C611B275D5600A121C9 /* SASearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASearchTableViewController.m; sourceTree = "<group>"; };
+		1C901C601B275D5600A121C9 /* SASearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASearchViewController.h; sourceTree = "<group>"; };
+		1C901C611B275D5600A121C9 /* SASearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASearchViewController.m; sourceTree = "<group>"; };
 		1C901C631B275D6D00A121C9 /* SAArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAArtistViewController.h; sourceTree = "<group>"; };
 		1C901C641B275D6D00A121C9 /* SAArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAArtistViewController.m; sourceTree = "<group>"; };
 		1C901C661B277A1400A121C9 /* artist-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "artist-placeholder.png"; sourceTree = SOURCE_ROOT; };
@@ -104,8 +104,8 @@
 		1C1FCB231B28B6100009E501 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1C901C601B275D5600A121C9 /* SASearchTableViewController.h */,
-				1C901C611B275D5600A121C9 /* SASearchTableViewController.m */,
+				1C901C601B275D5600A121C9 /* SASearchViewController.h */,
+				1C901C611B275D5600A121C9 /* SASearchViewController.m */,
 				1C901C631B275D6D00A121C9 /* SAArtistViewController.h */,
 				1C901C641B275D6D00A121C9 /* SAArtistViewController.m */,
 				1C1FCB271B28C3180009E501 /* SATrackViewController.h */,
@@ -393,7 +393,7 @@
 				1C34E5271B29DF1500F2ADE4 /* UIColor+SAColors.m in Sources */,
 				1C901C651B275D6D00A121C9 /* SAArtistViewController.m in Sources */,
 				1C1FCB291B28C3180009E501 /* SATrackViewController.m in Sources */,
-				1C901C621B275D5600A121C9 /* SASearchTableViewController.m in Sources */,
+				1C901C621B275D5600A121C9 /* SASearchViewController.m in Sources */,
 				2E7674301B26766200336867 /* AppDelegate.m in Sources */,
 				1C1FCB2E1B28CB020009E501 /* CustomTableViewCell.m in Sources */,
 				2E76742D1B26766200336867 /* main.m in Sources */,

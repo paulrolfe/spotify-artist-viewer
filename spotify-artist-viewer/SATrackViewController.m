@@ -45,6 +45,7 @@ CGFloat const cornerRatio = 0.2;
 - (void) displayInfo{
     [self.trackNameLabel setText:self.track.name];
     [self.artistNameLabel setText:self.track.artistName];
+    [self.artistNameLabel sizeToFit];
     [self.albumNameLabel setText:self.track.albumAppearsOn];
     [self.trackImageView sd_setImageWithURL:[NSURL URLWithString:self.track.imageURL] placeholderImage:[UIImage imageNamed:@"track-placeholder"]];
 }

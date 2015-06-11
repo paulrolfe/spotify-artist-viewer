@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Intrepid. All rights reserved.
 //
 
-#import "SASearchTableViewController.h"
+#import "SASearchViewController.h"
 #import "SARequestManager.h"
 #import "SAArtist.h"
 #import "SAArtistViewController.h"
@@ -14,21 +14,28 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "CustomTableViewCell.h"
 
-@interface SASearchTableViewController ()
+NSString const * NOT_FOUND_STRING = @"No results for that search. Back up and try again :)";
+NSString const * SEARCH_WELCOME = @"Search by artist, track, or album above";
+
+@interface SASearchViewController ()
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray *searchResults;
 @property (nonatomic) BOOL busyFetching;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet UILabel *underneathLabel;
 
 
 @end
 
-@implementation SASearchTableViewController
+@implementation SASearchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES];
     [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [self.tableView setHidden:YES];
 }
 - (void) viewDidAppear:(BOOL)animated{
     [self.searchBar becomeFirstResponder];
@@ -38,19 +45,23 @@
 - (void) updateSearchResultsFromSearchText:(NSString *)searchText{
     if ([searchText isEqualToString:@""]){
         self.searchResults=nil;
-        [self.tableView reloadData];
+        [self.tableView setHidden:YES];
+        [self.activityIndicator stopAnimating];
         return;
     }
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible=YES;
+    [self.activityIndicator startAnimating];
     
     if (self.searchBar.selectedScopeButtonIndex==0){
         [[SARequestManager sharedManager] getAllResultsFromQuery:searchText success:^(NSArray *results, NSString *query) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+            [self.activityIndicator stopAnimating];
             
             if (![query isEqualToString:self.searchBar.text])
                 return;
             self.searchResults = [[NSMutableArray alloc] initWithArray:results];
+            [self.tableView setHidden:NO];
             [self.tableView reloadData];
         } failure:^(NSError *error) {
             //TODO: Error handle.
@@ -59,10 +70,12 @@
     else if(self.searchBar.selectedScopeButtonIndex==1){
         [[SARequestManager sharedManager] getArtistsWithQuery:searchText success:^(NSArray *artists, NSString *query) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+            [self.activityIndicator stopAnimating];
 
             if (![query isEqualToString:self.searchBar.text])
                 return;
             self.searchResults = [[NSMutableArray alloc] initWithArray:artists];
+            [self.tableView setHidden:NO];
             [self.tableView reloadData];
         } failure:^(NSError *error) {
             //TODO: Error handle.
@@ -71,10 +84,12 @@
     else if(self.searchBar.selectedScopeButtonIndex==2){
         [[SARequestManager sharedManager] getTracksWithQuery:searchText success:^(NSArray *tracks, NSString *query) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+            [self.activityIndicator stopAnimating];
 
             if (![query isEqualToString:self.searchBar.text])
                 return;
             self.searchResults = [[NSMutableArray alloc] initWithArray:tracks];
+            [self.tableView setHidden:NO];
             [self.tableView reloadData];
         } failure:^(NSError *error) {
             //TODO: Error handle.
@@ -124,7 +139,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
+    // If it's zero, we don't want to show the tableview.
+    if (self.searchResults.count==0 && self.searchBar.text.length>0){
+        [self.tableView setHidden:YES];
+        [self.underneathLabel setText:[NOT_FOUND_STRING copy]];
+    }
+    else{
+        [self.underneathLabel setText:[SEARCH_WELCOME copy]];
+
+    }
     return self.searchResults.count;
 }
 
