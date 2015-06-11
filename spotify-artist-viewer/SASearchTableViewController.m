@@ -30,6 +30,9 @@
     [self.navigationController setNavigationBarHidden:YES];
     [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 }
+- (void) viewDidAppear:(BOOL)animated{
+    [self.searchBar becomeFirstResponder];
+}
 
 #pragma mark - Query Methods
 - (void) updateSearchResultsFromSearchText:(NSString *)searchText{

@@ -35,7 +35,7 @@ CGFloat const cornerRatio = 0.2;
     [self.backButton.layer setCornerRadius:4];
     [self.openInSpotifyButton setBackgroundColor:[UIColor spotifyGreen]];
     [self.openInSpotifyButton.layer setCornerRadius:15];
-    [self.trackImageView.layer setCornerRadius:[self cornerRadius]];
+    [self.trackImageView.layer setCornerRadius:self.trackImageView.frame.size.height * cornerRatio];
     [self.trackImageView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     [self.trackImageView.layer setBorderWidth:1.0];
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.track.spotifyExternalURL]]){
@@ -48,9 +48,7 @@ CGFloat const cornerRatio = 0.2;
     [self.albumNameLabel setText:self.track.albumAppearsOn];
     [self.trackImageView sd_setImageWithURL:[NSURL URLWithString:self.track.imageURL] placeholderImage:[UIImage imageNamed:@"track-placeholder"]];
 }
-- (CGFloat) cornerRadius{
-    return self.trackImageView.frame.size.height * cornerRatio;
-}
+
 
 - (IBAction)backTouched:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
