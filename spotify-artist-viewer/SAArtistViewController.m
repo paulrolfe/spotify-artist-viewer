@@ -9,14 +9,15 @@
 #import "SAArtistViewController.h"
 #import "APAvatarImageView.h"
 #import "SARequestManager.h"
-#import "UIImageView+CircleCrop.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "UIColor+SAColors.h"
 
 @interface SAArtistViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *artistName;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet APAvatarImageView *artistImageView;
 @property (weak, nonatomic) IBOutlet UITextView *artistBioTextView;
+@property (weak, nonatomic) IBOutlet UIButton *openInSpotifyButton;
 
 @end
 
@@ -25,7 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.artistImageView setBorderWidth:1.0];
     [[SARequestManager sharedManager] getBioForArtist:self.artist success:^(SAArtist *artist) {
         if(artist.bio){
             self.artist = artist;
@@ -38,8 +38,14 @@
     [self displayInfo];
 }
 - (void) setupViews{
+    [self.artistImageView setBorderWidth:1.0];
     [self.backButton setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     [self.backButton.layer setCornerRadius:4];
+    [self.openInSpotifyButton setBackgroundColor:[UIColor spotifyGreen]];
+    [self.openInSpotifyButton.layer setCornerRadius:15];
+    if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.artist.spotifyExternalURL]]){
+        [self.openInSpotifyButton setEnabled:NO];
+    }
 }
 - (void) displayInfo{
     [self.artistBioTextView setText:self.artist.bio];
@@ -47,24 +53,40 @@
     [self.artistImageView sd_setImageWithURL:[NSURL URLWithString:self.artist.imageURL] placeholderImage:[UIImage imageNamed:@"artist-placeholder"]];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 - (IBAction)backTouched:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)openInSpotifyTouched:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.artist.spotifyExternalURL]];
 }
-*/
+
+- (IBAction)tappedImage:(id)sender{
+    //add an image to view.
+    UIImageView * bigView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    bigView.contentMode = UIViewContentModeScaleAspectFit;
+    bigView.backgroundColor = [UIColor blackColor];
+    [bigView sd_setImageWithURL:[NSURL URLWithString:self.artist.imageURL] placeholderImage:[UIImage imageNamed:@"artist-placeholder"]];
+    bigView.tag=333;
+    bigView.userInteractionEnabled=YES;
+    bigView.alpha=0;
+    [self.view addSubview:bigView];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        bigView.alpha=1.0;
+    }];
+    
+    UITapGestureRecognizer * imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelBigImage:)];
+    [bigView addGestureRecognizer:imageTap];
+}
+- (void)cancelBigImage:(id)sender{
+    UIView * bigImage = [self.view viewWithTag:333];
+    [UIView animateWithDuration:0.5 animations:^{
+        //fade out view.
+        [bigImage setAlpha:0];
+    } completion:^(BOOL finished) {
+        [[self.view viewWithTag:333] removeFromSuperview];
+    }];
+}
+
 
 @end

@@ -21,6 +21,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - APAvatarImageView (1.1.0)
+  - IQKeyboardManager (3.2.4)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -28,11 +29,13 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - APAvatarImageView
+  - IQKeyboardManager
   - SDWebImage (~> 3.6)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   APAvatarImageView: 428dbd0631a150fe876f90bfd7eaa275a19b9209
+  IQKeyboardManager: 555b1231fefafb21b19278d7cca72986a27b748b
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
 
 COCOAPODS: 0.37.2

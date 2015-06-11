@@ -13,5 +13,7 @@
 
 @property (nonatomic, strong) SAArtist * artist;
 
+//- (instancetype) initWithArtist:(SAArtist *)artist;
+
 
 @end

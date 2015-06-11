@@ -17,6 +17,8 @@
         self.imageURL = [(NSDictionary *)[(NSArray *)artistDictionary[@"images"] firstObject] objectForKey:@"url"];
         self.bio = @"Loading...";
         self.popularity = artistDictionary[@"popularity"];
+        self.spotifyExternalURL = [NSString stringWithFormat:@"spotify://artist:%@",artistDictionary[@"id"]];
+
     }
     return self;
 }

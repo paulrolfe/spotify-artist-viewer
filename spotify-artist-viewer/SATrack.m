@@ -20,6 +20,7 @@
         self.albumAppearsOn = trackDictionary[@"album"][@"name"];
         self.artistURI = [(NSDictionary *)[(NSArray *)trackDictionary[@"artists"] firstObject] objectForKey:@"uri"];
         self.popularity = trackDictionary[@"popularity"];
+        self.spotifyExternalURL = [NSString stringWithFormat:@"spotify://track:%@",trackDictionary[@"id"]];
     }
     return self;
 }

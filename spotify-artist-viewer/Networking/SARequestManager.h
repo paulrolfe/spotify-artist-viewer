@@ -22,13 +22,17 @@
                    success:(void (^)(NSArray *tracks, NSString *query))success
                    failure:(void (^)(NSError *error))failure;
 
-- (void) getAllResultsFromQuery:(NSString *)query
+- (void)getAllResultsFromQuery:(NSString *)query
                         success:(void (^)(NSArray *results, NSString *query))success
                         failure:(void (^)(NSError *error))failure;
 
 - (void)getBioForArtist:(SAArtist *)artist
                          success:(void (^)(SAArtist *artist))success
                          failure:(void (^)(NSError *error))failure;
+
+- (void)getNextPageFromLastSearchWithOffset:(NSNumber *)offset
+                                     success:(void (^)(NSArray *results, NSString *query))success
+                                     failure:(void (^)(NSError *error))failure;
 
 
 

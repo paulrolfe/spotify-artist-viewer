@@ -14,6 +14,12 @@ NSString const * BASE_URL_SPOTIFY = @"https://api.spotify.com/v1/search";
 NSString const * ECHONEST_API_KEY = @"DXRM3NA4WII8WVHGF";
 NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/artist/biographies";
 
+@interface SARequestManager ()
+
+@property (nonatomic, strong) NSString *lastRequest;
+
+@end
+
 @implementation SARequestManager
 
 + (instancetype)sharedManager {
@@ -32,7 +38,8 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
         success(nil,nil);
     }
     else{
-        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=artist",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=artist&market=US",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        self.lastRequest = request;
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -43,7 +50,6 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
                 SAArtist * artist =[[SAArtist alloc] initWithDictionary:artistDict];
                 [artistArray addObject:artist];
             }
-            
             NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
             [artistArray sortUsingDescriptors:@[sortPop]];
             success(artistArray,queryDict[@"query"]);
@@ -61,7 +67,9 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
         success(nil,nil);
     }
     else{
-        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=track",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=track&market=US",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        self.lastRequest = request;
+
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -72,6 +80,7 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
                 SATrack * track=[[SATrack alloc] initWithDictionary:trackDict];
                 [trackArray addObject:track];
             }
+
             NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
             [trackArray sortUsingDescriptors:@[sortPop]];
             success(trackArray,queryDict[@"query"]);
@@ -89,11 +98,14 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
         success(nil,query);
     }
     else{
-        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=track,artist",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=track,artist&market=US",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        self.lastRequest = request;
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary * queryDict = [NSURL URLWithString:responseObject[@"tracks"][@"href"]].queryDictionary;
+            if (!queryDict)
+                queryDict = [NSURL URLWithString:responseObject[@"artists"][@"href"]].queryDictionary;
             
             NSMutableArray * allArray = [[NSMutableArray alloc] init];
             NSArray * artistArray = responseObject[@"artists"][@"items"];
@@ -106,6 +118,7 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
                 SATrack * track=[[SATrack alloc] initWithDictionary:trackDict];
                 [allArray addObject:track];
             }
+
             //sort by popularity
             NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
             [allArray sortUsingDescriptors:@[sortPop]];
@@ -132,6 +145,8 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
         NSArray * bioData = responseObject[@"response"][@"biographies"];
         NSDictionary * bioDict = [bioData firstObject];
         NSString * bio = bioDict[@"text"];
+        //SAArtist * copy = [artist copy];
+        //copy.bio = bio;
         artist.bio = bio;
         success(artist);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -139,6 +154,40 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
         failure(error);
     }];
     
+}
+- (void) getNextPageFromLastSearchWithOffset:(NSNumber *)offset
+                                     success:(void (^)(NSArray *results, NSString *query))success
+                                     failure:(void (^)(NSError *error))failure
+{
+    if (!self.lastRequest)
+        return;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:[NSString stringWithFormat:@"%@&offset=%@",self.lastRequest,offset] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary * queryDict = [NSURL URLWithString:responseObject[@"tracks"][@"href"]].queryDictionary;
+        if (!queryDict)
+            queryDict = [NSURL URLWithString:responseObject[@"artists"][@"href"]].queryDictionary;
+        
+        NSMutableArray * allArray = [[NSMutableArray alloc] init];
+        NSArray * artistArray = responseObject[@"artists"][@"items"];
+        for (NSDictionary *artistDict in artistArray){
+            SAArtist * artist =[[SAArtist alloc] initWithDictionary:artistDict];
+            [allArray addObject:artist];
+        }
+        NSArray * trackArray = responseObject[@"tracks"][@"items"];
+        for (NSDictionary *trackDict in trackArray){
+            SATrack * track=[[SATrack alloc] initWithDictionary:trackDict];
+            [allArray addObject:track];
+        }
+        //sort by popularity
+        NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
+        [allArray sortUsingDescriptors:@[sortPop]];
+        success(allArray,queryDict[@"query"]);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        failure(error);
+    }];
 }
 
 

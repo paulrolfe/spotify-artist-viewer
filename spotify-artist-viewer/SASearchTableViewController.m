@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray *searchResults;
+@property (nonatomic) BOOL busyFetching;
+
 
 @end
 
@@ -25,21 +27,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.navigationController setNavigationBarHidden:YES];
     [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-#pragma mark - Search Delegates
+#pragma mark - Query Methods
 - (void) updateSearchResultsFromSearchText:(NSString *)searchText{
     if ([searchText isEqualToString:@""]){
         self.searchResults=nil;
@@ -47,8 +39,12 @@
         return;
     }
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible=YES;
+    
     if (self.searchBar.selectedScopeButtonIndex==0){
         [[SARequestManager sharedManager] getAllResultsFromQuery:searchText success:^(NSArray *results, NSString *query) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+            
             if (![query isEqualToString:self.searchBar.text])
                 return;
             self.searchResults = [[NSMutableArray alloc] initWithArray:results];
@@ -59,6 +55,8 @@
     }
     else if(self.searchBar.selectedScopeButtonIndex==1){
         [[SARequestManager sharedManager] getArtistsWithQuery:searchText success:^(NSArray *artists, NSString *query) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+
             if (![query isEqualToString:self.searchBar.text])
                 return;
             self.searchResults = [[NSMutableArray alloc] initWithArray:artists];
@@ -69,6 +67,8 @@
     }
     else if(self.searchBar.selectedScopeButtonIndex==2){
         [[SARequestManager sharedManager] getTracksWithQuery:searchText success:^(NSArray *tracks, NSString *query) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+
             if (![query isEqualToString:self.searchBar.text])
                 return;
             self.searchResults = [[NSMutableArray alloc] initWithArray:tracks];
@@ -79,11 +79,37 @@
     }
     
 }
+- (void) fetchNextResults{
+    if (self.busyFetching) return;
+    self.busyFetching = YES;
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible=YES;
+    
+    [[SARequestManager sharedManager] getNextPageFromLastSearchWithOffset:@(self.searchResults.count)
+                                                                  success:^(NSArray *results, NSString *query) {
+                                                                      self.busyFetching=NO;
+                                                                      [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+                                                                      
+                                                                      if (![query isEqualToString:self.searchBar.text])
+                                                                          return;
+                                                                      [self.searchResults addObjectsFromArray:results];
+                                                                      [self.tableView reloadData];
+                                                                  }
+                                                                  failure:^(NSError *error) {
+                                                                      //Do something?
+                                                                      
+                                                                  }];
+}
+
+#pragma mark - Search Bar Delegates
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     [self updateSearchResultsFromSearchText:searchText];
 }
 - (void) searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope{
     [self updateSearchResultsFromSearchText:searchBar.text];
+}
+- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
 }
 
 
@@ -148,14 +174,17 @@
     return 60;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Table view delegate
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.searchBar resignFirstResponder];
+    
+    // Fetch new challenges when the bottom row is 3 away from the end of the results.
+    NSIndexPath * bottomPath =(NSIndexPath *)self.tableView.indexPathsForVisibleRows.lastObject;
+    if (bottomPath.row>=self.searchResults.count-3){
+        [self fetchNextResults];
+    }
 }
-*/
+
+
 
 @end

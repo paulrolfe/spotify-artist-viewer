@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString * trackURI;
 @property (nonatomic, strong) NSString * artistURI;
 @property (nonatomic, strong) NSNumber * popularity;
+@property (nonatomic, strong) NSString * spotifyExternalURL;
 
 
 

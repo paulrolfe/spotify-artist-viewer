@@ -18,6 +18,7 @@
         // Get the parameter value
         NSString *value = [[qs componentsSeparatedByString:@"="] objectAtIndex:1];
         value = [value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+        //customized to weed out the * added manually to all queries.
         value = [value stringByReplacingOccurrencesOfString:@"*" withString:@""];
         value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
