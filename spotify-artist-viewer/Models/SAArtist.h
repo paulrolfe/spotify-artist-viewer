@@ -16,8 +16,6 @@
 @property (nonatomic, strong) NSNumber * popularity;
 @property (nonatomic, strong) NSString * spotifyExternalURL;
 
-
-
 - (instancetype) initWithDictionary:(NSDictionary *)artistDictionary;
 
 @end

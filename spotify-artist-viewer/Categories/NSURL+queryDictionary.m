@@ -21,7 +21,6 @@
         //customized to weed out the * added manually to all queries.
         value = [value stringByReplacingOccurrencesOfString:@"*" withString:@""];
         value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
         queryStrings[key] = value;
     }
     return queryStrings;

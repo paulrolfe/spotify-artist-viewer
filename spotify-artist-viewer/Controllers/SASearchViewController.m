@@ -27,10 +27,11 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
 @property (nonatomic, weak) IBOutlet UILabel *underneathLabel;
 @property (nonatomic, weak) IBOutlet UIView *underneathView;
 
-
 @end
 
 @implementation SASearchViewController
+
+#pragma mark - View Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,14 +41,16 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
     UITapGestureRecognizer *dismissKeyboardTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.underneathView addGestureRecognizer:dismissKeyboardTap];
 }
-- (void) viewDidAppear:(BOOL)animated{
+
+- (void)viewDidAppear:(BOOL)animated{
     [self.searchBar becomeFirstResponder];
 }
-- (void) dismissKeyboard{
+- (void)dismissKeyboard{
     [self.searchBar resignFirstResponder];
 }
 
 #pragma mark - Query Methods
+
 - (void) updateSearchResultsFromSearchText:(NSString *)searchText{    
     if ([searchText isEqualToString:@""]){
         self.searchResults=nil;
@@ -69,10 +72,7 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
             self.searchResults = [[NSMutableArray alloc] initWithArray:results];
             [self.tableView setHidden:NO];
             [self.tableView reloadData];
-        } failure:^(NSError *error) {
-//            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//            [errorAlert show];
-        }];
+        } failure:nil];
     }
     else if(self.searchBar.selectedScopeButtonIndex==1){
         [[SARequestManager sharedManager] getArtistsWithQuery:searchText success:^(NSArray *artists, NSString *query) {
@@ -84,9 +84,7 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
             self.searchResults = [[NSMutableArray alloc] initWithArray:artists];
             [self.tableView setHidden:NO];
             [self.tableView reloadData];
-        } failure:^(NSError *error) {
-            //TODO: Error handle.
-        }];
+        } failure:nil];
     }
     else if(self.searchBar.selectedScopeButtonIndex==2){
         [[SARequestManager sharedManager] getTracksWithQuery:searchText success:^(NSArray *tracks, NSString *query) {
@@ -98,13 +96,11 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
             self.searchResults = [[NSMutableArray alloc] initWithArray:tracks];
             [self.tableView setHidden:NO];
             [self.tableView reloadData];
-        } failure:^(NSError *error) {
-            //TODO: Error handle.
-        }];
+        } failure:nil];
     }
-    
 }
-- (void) fetchNextResults{
+
+- (void)fetchNextResults{
     if (self.busyFetching) return;
     self.busyFetching = YES;
     
@@ -120,20 +116,19 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
                                                                       [self.searchResults addObjectsFromArray:results];
                                                                       [self.tableView reloadData];
                                                                   }
-                                                                  failure:^(NSError *error) {
-//                                                                      UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//                                                                      [errorAlert show];
-                                                                      
-                                                                  }];
+                                                                  failure:nil];
 }
 
 #pragma mark - Search Bar Delegates
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     [self updateSearchResultsFromSearchText:searchText];
 }
+
 - (void) searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope{
     [self updateSearchResultsFromSearchText:searchBar.text];
 }
+
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
 }
@@ -142,7 +137,6 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     return 1;
 }
 
@@ -160,10 +154,6 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"customCell" forIndexPath:indexPath];
-    
-    // Configure the cell...
-    [cell.imageView setContentMode:UIViewContentModeScaleAspectFill];
-    [cell.imageView setClipsToBounds:YES];
 
     id pickedItem = [self.searchResults objectAtIndex:indexPath.row];
     if ([pickedItem isKindOfClass:[SAArtist class]]){
@@ -188,7 +178,8 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
     
     return cell;
 }
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     id pickedItem = [self.searchResults objectAtIndex:indexPath.row];
     if ([pickedItem isKindOfClass:[SAArtist class]]){
         SAArtist *pickedArtist = (SAArtist *)pickedItem;
@@ -203,12 +194,14 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
         [self.navigationController pushViewController:trackVC animated:YES];
     }
 }
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 60;
 }
 
 #pragma mark - Table view delegate
-- (void) scrollViewDidScroll:(UIScrollView *)scrollView{
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self.searchBar resignFirstResponder];
     
     // Fetch new challenges when the bottom row is 10 away from the end of the results.

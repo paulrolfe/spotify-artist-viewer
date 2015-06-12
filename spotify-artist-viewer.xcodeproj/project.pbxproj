@@ -10,13 +10,11 @@
 		1C6696AF1B2B174C00C6DD1C /* SAArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6696AA1B2B174C00C6DD1C /* SAArtistViewController.m */; };
 		1C6696B01B2B174C00C6DD1C /* SASearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6696AC1B2B174C00C6DD1C /* SASearchViewController.m */; };
 		1C6696B11B2B174C00C6DD1C /* SATrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6696AE1B2B174C00C6DD1C /* SATrackViewController.m */; };
-		1C6696B71B2B175E00C6DD1C /* NSURL+queryDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6696B41B2B175E00C6DD1C /* NSURL+queryDictionary.m */; };
 		1C6696B81B2B175E00C6DD1C /* UIColor+SAColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6696B61B2B175E00C6DD1C /* UIColor+SAColors.m */; };
 		1C6696BE1B2B176700C6DD1C /* SAArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6696BB1B2B176700C6DD1C /* SAArtist.m */; };
 		1C6696BF1B2B176700C6DD1C /* SATrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6696BD1B2B176700C6DD1C /* SATrack.m */; };
-		1C6696C71B2B176E00C6DD1C /* CircleShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6696C21B2B176E00C6DD1C /* CircleShadowImageView.m */; };
 		1C6696C81B2B176E00C6DD1C /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6696C41B2B176E00C6DD1C /* CustomTableViewCell.m */; };
-		1C6696C91B2B176E00C6DD1C /* SACircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6696C61B2B176E00C6DD1C /* SACircleImageView.m */; };
+		1CD38C0E1B2B5A8C00F9D020 /* NSURL+queryDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD38C0D1B2B5A8C00F9D020 /* NSURL+queryDictionary.m */; };
 		2E76742D1B26766200336867 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E76742C1B26766200336867 /* main.m */; };
 		2E7674301B26766200336867 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E76742F1B26766200336867 /* AppDelegate.m */; };
 		2E7674361B26766200336867 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E7674341B26766200336867 /* Main.storyboard */; };
@@ -44,20 +42,16 @@
 		1C6696AC1B2B174C00C6DD1C /* SASearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASearchViewController.m; sourceTree = "<group>"; };
 		1C6696AD1B2B174C00C6DD1C /* SATrackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SATrackViewController.h; sourceTree = "<group>"; };
 		1C6696AE1B2B174C00C6DD1C /* SATrackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATrackViewController.m; sourceTree = "<group>"; };
-		1C6696B31B2B175E00C6DD1C /* NSURL+queryDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+queryDictionary.h"; sourceTree = "<group>"; };
-		1C6696B41B2B175E00C6DD1C /* NSURL+queryDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+queryDictionary.m"; sourceTree = "<group>"; };
 		1C6696B51B2B175E00C6DD1C /* UIColor+SAColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SAColors.h"; sourceTree = "<group>"; };
 		1C6696B61B2B175E00C6DD1C /* UIColor+SAColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SAColors.m"; sourceTree = "<group>"; };
 		1C6696BA1B2B176700C6DD1C /* SAArtist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAArtist.h; sourceTree = "<group>"; };
 		1C6696BB1B2B176700C6DD1C /* SAArtist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAArtist.m; sourceTree = "<group>"; };
 		1C6696BC1B2B176700C6DD1C /* SATrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SATrack.h; sourceTree = "<group>"; };
 		1C6696BD1B2B176700C6DD1C /* SATrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATrack.m; sourceTree = "<group>"; };
-		1C6696C11B2B176E00C6DD1C /* CircleShadowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleShadowImageView.h; sourceTree = "<group>"; };
-		1C6696C21B2B176E00C6DD1C /* CircleShadowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleShadowImageView.m; sourceTree = "<group>"; };
 		1C6696C31B2B176E00C6DD1C /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
 		1C6696C41B2B176E00C6DD1C /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
-		1C6696C51B2B176E00C6DD1C /* SACircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACircleImageView.h; sourceTree = "<group>"; };
-		1C6696C61B2B176E00C6DD1C /* SACircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACircleImageView.m; sourceTree = "<group>"; };
+		1CD38C0C1B2B5A8C00F9D020 /* NSURL+queryDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+queryDictionary.h"; sourceTree = "<group>"; };
+		1CD38C0D1B2B5A8C00F9D020 /* NSURL+queryDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+queryDictionary.m"; sourceTree = "<group>"; };
 		2E7674271B26766200336867 /* spotify-artist-viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "spotify-artist-viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E76742B1B26766200336867 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E76742C1B26766200336867 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -111,8 +105,8 @@
 		1C6696B21B2B175E00C6DD1C /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				1C6696B31B2B175E00C6DD1C /* NSURL+queryDictionary.h */,
-				1C6696B41B2B175E00C6DD1C /* NSURL+queryDictionary.m */,
+				1CD38C0C1B2B5A8C00F9D020 /* NSURL+queryDictionary.h */,
+				1CD38C0D1B2B5A8C00F9D020 /* NSURL+queryDictionary.m */,
 				1C6696B51B2B175E00C6DD1C /* UIColor+SAColors.h */,
 				1C6696B61B2B175E00C6DD1C /* UIColor+SAColors.m */,
 			);
@@ -133,12 +127,8 @@
 		1C6696C01B2B176E00C6DD1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1C6696C11B2B176E00C6DD1C /* CircleShadowImageView.h */,
-				1C6696C21B2B176E00C6DD1C /* CircleShadowImageView.m */,
 				1C6696C31B2B176E00C6DD1C /* CustomTableViewCell.h */,
 				1C6696C41B2B176E00C6DD1C /* CustomTableViewCell.m */,
-				1C6696C51B2B176E00C6DD1C /* SACircleImageView.h */,
-				1C6696C61B2B176E00C6DD1C /* SACircleImageView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -166,17 +156,17 @@
 		2E7674291B26766200336867 /* spotify-artist-viewer */ = {
 			isa = PBXGroup;
 			children = (
+				2E76742E1B26766200336867 /* AppDelegate.h */,
+				2E76742F1B26766200336867 /* AppDelegate.m */,
 				1C6696B91B2B176700C6DD1C /* Models */,
 				1C6696C01B2B176E00C6DD1C /* Views */,
 				1C6696A81B2B174C00C6DD1C /* Controllers */,
 				2E7674511B2676D400336867 /* Networking */,
-				2E76742E1B26766200336867 /* AppDelegate.h */,
-				2E76742F1B26766200336867 /* AppDelegate.m */,
-				2E7674341B26766200336867 /* Main.storyboard */,
-				2E7674371B26766200336867 /* Images.xcassets */,
-				2E7674391B26766200336867 /* LaunchScreen.xib */,
-				2E76742A1B26766200336867 /* Supporting Files */,
 				1C6696B21B2B175E00C6DD1C /* Categories */,
+				2E7674341B26766200336867 /* Main.storyboard */,
+				2E7674391B26766200336867 /* LaunchScreen.xib */,
+				2E7674371B26766200336867 /* Images.xcassets */,
+				2E76742A1B26766200336867 /* Supporting Files */,
 			);
 			path = "spotify-artist-viewer";
 			sourceTree = "<group>";
@@ -371,16 +361,14 @@
 			files = (
 				1C6696BE1B2B176700C6DD1C /* SAArtist.m in Sources */,
 				1C6696AF1B2B174C00C6DD1C /* SAArtistViewController.m in Sources */,
-				1C6696C91B2B176E00C6DD1C /* SACircleImageView.m in Sources */,
 				1C6696B81B2B175E00C6DD1C /* UIColor+SAColors.m in Sources */,
+				1CD38C0E1B2B5A8C00F9D020 /* NSURL+queryDictionary.m in Sources */,
 				2E7674301B26766200336867 /* AppDelegate.m in Sources */,
 				1C6696BF1B2B176700C6DD1C /* SATrack.m in Sources */,
 				2E76742D1B26766200336867 /* main.m in Sources */,
 				1C6696C81B2B176E00C6DD1C /* CustomTableViewCell.m in Sources */,
 				1C6696B01B2B174C00C6DD1C /* SASearchViewController.m in Sources */,
-				1C6696B71B2B175E00C6DD1C /* NSURL+queryDictionary.m in Sources */,
 				1C6696B11B2B174C00C6DD1C /* SATrackViewController.m in Sources */,
-				1C6696C71B2B176E00C6DD1C /* CircleShadowImageView.m in Sources */,
 				2E7674571B26772600336867 /* SARequestManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

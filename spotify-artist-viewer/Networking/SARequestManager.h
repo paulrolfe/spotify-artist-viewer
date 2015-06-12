@@ -9,7 +9,6 @@
 #import "SAArtist.h"
 #import "SATrack.h"
 
-
 @interface SARequestManager : NSObject
 
 + (instancetype)sharedManager;
@@ -33,7 +32,5 @@
 - (void)getNextPageFromLastSearchWithOffset:(NSNumber *)offset
                                      success:(void (^)(NSArray *results, NSString *query))success
                                      failure:(void (^)(NSError *error))failure;
-
-
 
 @end

@@ -13,6 +13,7 @@
 CGFloat const cornerRatio = 0.2;
 
 @interface SATrackViewController ()
+
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *trackNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *artistNameLabel;
@@ -24,13 +25,15 @@ CGFloat const cornerRatio = 0.2;
 
 @implementation SATrackViewController
 
+#pragma mark - View Setup
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self setupViews];
     [self displayInfo];
 }
-- (void) setupViews{
+
+- (void)setupViews{
     [self.backButton setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     [self.backButton.layer setCornerRadius:4];
     [self.openInSpotifyButton setBackgroundColor:[UIColor spotifyGreen]];
@@ -42,7 +45,8 @@ CGFloat const cornerRatio = 0.2;
         [self.openInSpotifyButton setEnabled:NO];
     }
 }
-- (void) displayInfo{
+
+- (void)displayInfo{
     [self.trackNameLabel setText:self.track.name];
     [self.artistNameLabel setText:self.track.artistName];
     [self.artistNameLabel sizeToFit];
@@ -50,13 +54,16 @@ CGFloat const cornerRatio = 0.2;
     [self.trackImageView sd_setImageWithURL:[NSURL URLWithString:self.track.imageURL] placeholderImage:[UIImage imageNamed:@"track-placeholder"]];
 }
 
+#pragma mark - User Interactions
 
 - (IBAction)backTouched:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (IBAction)openSpotify:(id)sender{
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.track.spotifyExternalURL]];
 }
+
 - (IBAction)tappedImage:(id)sender{
     //add an image to view.
     UIImageView * bigView = [[UIImageView alloc] initWithFrame:self.view.frame];
@@ -75,6 +82,7 @@ CGFloat const cornerRatio = 0.2;
     UITapGestureRecognizer * imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelBigImage:)];
     [bigView addGestureRecognizer:imageTap];
 }
+
 - (void)cancelBigImage:(id)sender{
     UIView * bigImage = [self.view viewWithTag:333];
     [UIView animateWithDuration:0.5 animations:^{

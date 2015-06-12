@@ -12,7 +12,6 @@
 
 - (instancetype) initWithDictionary:(NSDictionary *)trackDictionary{
     if (self = [super init]){
-        //setup here
         self.name = trackDictionary[@"name"];
         self.trackURI = trackDictionary[@"uri"];
         self.imageURL = [(NSDictionary *)[(NSArray *)trackDictionary[@"album"][@"images"] firstObject] objectForKey:@"url"];

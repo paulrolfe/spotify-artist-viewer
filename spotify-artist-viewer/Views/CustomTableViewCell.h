@@ -10,7 +10,6 @@
 
 @interface CustomTableViewCell : UITableViewCell
 
-
 @property (weak, nonatomic) IBOutlet UILabel *mainLabel;
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sideImageView;

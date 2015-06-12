@@ -23,21 +23,22 @@
 
 @implementation SAArtistViewController
 
+#pragma mark - View Setup
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [[SARequestManager sharedManager] getBioForArtist:self.artist success:^(SAArtist *artist) {
         if(artist.bio){
             self.artist = artist;
             [self displayInfo];
         }
     } failure:^(NSError *error) {
-        //Some error handling.
+
     }];
     [self setupViews];
     [self displayInfo];
 }
-- (void) setupViews{
+
+- (void)setupViews{
     [self.artistImageView setBorderWidth:1.0];
     [self.backButton setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     [self.backButton.layer setCornerRadius:4];
@@ -47,16 +48,20 @@
         [self.openInSpotifyButton setEnabled:NO];
     }
 }
-- (void) displayInfo{
+
+- (void)displayInfo{
     [self.artistBioTextView setText:self.artist.bio];
     [self.artistNameLabel setText:self.artist.name];
     [self.artistNameLabel sizeToFit];
     [self.artistImageView sd_setImageWithURL:[NSURL URLWithString:self.artist.imageURL] placeholderImage:[UIImage imageNamed:@"artist-placeholder"]];
 }
 
+#pragma mark - User Interactions
+
 - (IBAction)backTouched:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (IBAction)openInSpotifyTouched:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.artist.spotifyExternalURL]];
 }
@@ -79,6 +84,7 @@
     UITapGestureRecognizer * imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelBigImage:)];
     [bigView addGestureRecognizer:imageTap];
 }
+
 - (void)cancelBigImage:(id)sender{
     UIView * bigImage = [self.view viewWithTag:333];
     [UIView animateWithDuration:0.5 animations:^{
