@@ -15,7 +15,7 @@
 #import "CustomTableViewCell.h"
 
 NSString const * NOT_FOUND_STRING = @"No results for that search. Back up and try again :)";
-NSString const * SEARCH_WELCOME = @"Search by artist, track, or album above";
+NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album above";
 
 @interface SASearchViewController ()
 
@@ -25,6 +25,7 @@ NSString const * SEARCH_WELCOME = @"Search by artist, track, or album above";
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, weak) IBOutlet UILabel *underneathLabel;
+@property (nonatomic, weak) IBOutlet UIView *underneathView;
 
 
 @end
@@ -36,13 +37,18 @@ NSString const * SEARCH_WELCOME = @"Search by artist, track, or album above";
     [self.navigationController setNavigationBarHidden:YES];
     [self.tableView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     [self.tableView setHidden:YES];
+    UITapGestureRecognizer *dismissKeyboardTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.underneathView addGestureRecognizer:dismissKeyboardTap];
 }
 - (void) viewDidAppear:(BOOL)animated{
     [self.searchBar becomeFirstResponder];
 }
+- (void) dismissKeyboard{
+    [self.searchBar resignFirstResponder];
+}
 
 #pragma mark - Query Methods
-- (void) updateSearchResultsFromSearchText:(NSString *)searchText{
+- (void) updateSearchResultsFromSearchText:(NSString *)searchText{    
     if ([searchText isEqualToString:@""]){
         self.searchResults=nil;
         [self.tableView setHidden:YES];
@@ -64,7 +70,8 @@ NSString const * SEARCH_WELCOME = @"Search by artist, track, or album above";
             [self.tableView setHidden:NO];
             [self.tableView reloadData];
         } failure:^(NSError *error) {
-            //TODO: Error handle.
+//            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//            [errorAlert show];
         }];
     }
     else if(self.searchBar.selectedScopeButtonIndex==1){
@@ -114,7 +121,8 @@ NSString const * SEARCH_WELCOME = @"Search by artist, track, or album above";
                                                                       [self.tableView reloadData];
                                                                   }
                                                                   failure:^(NSError *error) {
-                                                                      //Do something?
+                                                                      UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                                                                      [errorAlert show];
                                                                       
                                                                   }];
 }
@@ -145,8 +153,7 @@ NSString const * SEARCH_WELCOME = @"Search by artist, track, or album above";
         [self.underneathLabel setText:[NOT_FOUND_STRING copy]];
     }
     else{
-        [self.underneathLabel setText:[SEARCH_WELCOME copy]];
-
+        [self.underneathLabel setText:[SEARCH_WELCOME_STRING copy]];
     }
     return self.searchResults.count;
 }
@@ -162,7 +169,7 @@ NSString const * SEARCH_WELCOME = @"Search by artist, track, or album above";
     if ([pickedItem isKindOfClass:[SAArtist class]]){
         SAArtist * thisArtist = (SAArtist *)pickedItem;
         [cell.mainLabel setText:thisArtist.name];
-        [cell.detailLabel setText:@""];
+        [cell.detailLabel setText:@"Artist"];
         [cell.sideImageView sd_setImageWithURL:[NSURL URLWithString:thisArtist.imageURL] placeholderImage:[UIImage imageNamed:@"artist-placeholder"]];
     }
     else if([pickedItem isKindOfClass:[SATrack class]]){

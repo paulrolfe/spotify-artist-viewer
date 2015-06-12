@@ -24,6 +24,10 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m7d-xS-cLO">
+                                <rect key="frame" x="0.0" y="152" width="600" height="448"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="aBt-iJ-HkL">
                                 <rect key="frame" x="0.0" y="152" width="600" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -103,16 +107,20 @@
                             <constraint firstItem="Ljs-cp-Ubn" firstAttribute="top" secondItem="fp8-Ad-OY8" secondAttribute="bottom" id="2Ku-v3-6UA"/>
                             <constraint firstAttribute="trailing" secondItem="B2n-ID-bq7" secondAttribute="trailing" constant="16" id="5hd-1U-Vxl"/>
                             <constraint firstItem="B2n-ID-bq7" firstAttribute="leading" secondItem="DRJ-nY-Twp" secondAttribute="trailing" constant="16" id="9H3-Sh-Ysq"/>
+                            <constraint firstItem="m7d-xS-cLO" firstAttribute="trailing" secondItem="aBt-iJ-HkL" secondAttribute="trailing" id="B5z-CP-FsV"/>
                             <constraint firstItem="DRJ-nY-Twp" firstAttribute="top" secondItem="Ljs-cp-Ubn" secondAttribute="bottom" constant="8" id="Bqz-da-aMb"/>
                             <constraint firstAttribute="trailing" secondItem="Ljs-cp-Ubn" secondAttribute="trailing" id="E6B-Eh-Yg2"/>
                             <constraint firstItem="Ljs-cp-Ubn" firstAttribute="leading" secondItem="k4b-zf-taa" secondAttribute="leading" id="GQA-JQ-0Vu"/>
                             <constraint firstAttribute="centerY" secondItem="DRJ-nY-Twp" secondAttribute="centerY" id="JCX-wr-AEg"/>
                             <constraint firstAttribute="centerY" secondItem="B2n-ID-bq7" secondAttribute="centerY" id="OFp-K4-XVV"/>
                             <constraint firstItem="aBt-iJ-HkL" firstAttribute="top" secondItem="Ljs-cp-Ubn" secondAttribute="bottom" id="PKZ-1t-gbe"/>
+                            <constraint firstItem="m7d-xS-cLO" firstAttribute="bottom" secondItem="aBt-iJ-HkL" secondAttribute="bottom" id="Qnk-Jt-O6P"/>
                             <constraint firstAttribute="centerX" secondItem="DRJ-nY-Twp" secondAttribute="centerX" id="RyS-Qz-S1M"/>
                             <constraint firstAttribute="trailingMargin" secondItem="B2n-ID-bq7" secondAttribute="trailing" constant="16" id="Zbp-9b-Oyk"/>
+                            <constraint firstItem="m7d-xS-cLO" firstAttribute="leading" secondItem="aBt-iJ-HkL" secondAttribute="leading" id="cIG-FN-5eD"/>
                             <constraint firstItem="B2n-ID-bq7" firstAttribute="leading" secondItem="k4b-zf-taa" secondAttribute="leading" constant="16" id="caP-I2-h2n"/>
                             <constraint firstItem="aBt-iJ-HkL" firstAttribute="leading" secondItem="k4b-zf-taa" secondAttribute="leading" id="dBd-n2-umM"/>
+                            <constraint firstItem="m7d-xS-cLO" firstAttribute="top" secondItem="aBt-iJ-HkL" secondAttribute="top" id="emq-Vt-Dav"/>
                             <constraint firstAttribute="centerX" secondItem="B2n-ID-bq7" secondAttribute="centerX" id="f0w-KK-hNP"/>
                             <constraint firstAttribute="trailing" secondItem="aBt-iJ-HkL" secondAttribute="trailing" id="fqs-Cw-a1h"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DRJ-nY-Twp" secondAttribute="trailing" constant="24" id="hLW-wR-RZV"/>
@@ -137,6 +145,7 @@
                         <outlet property="searchBar" destination="Ljs-cp-Ubn" id="uJl-7d-THe"/>
                         <outlet property="tableView" destination="aBt-iJ-HkL" id="ov1-4r-Cn7"/>
                         <outlet property="underneathLabel" destination="B2n-ID-bq7" id="NRD-GH-rI8"/>
+                        <outlet property="underneathView" destination="m7d-xS-cLO" id="2EB-Y4-GAX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="46y-4J-pFZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

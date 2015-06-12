@@ -38,19 +38,19 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
         success(nil,nil);
     }
     else{
-        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=artist&market=US",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        NSString *request = [NSString stringWithFormat:@"%@?q=%@*&type=artist&market=US",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
         self.lastRequest = request;
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary * queryDict = [NSURL URLWithString:responseObject[@"artists"][@"href"]].queryDictionary;
-            NSMutableArray * artistArray = [[NSMutableArray alloc] init];
+            NSDictionary *queryDict = [NSURL URLWithString:responseObject[@"artists"][@"href"]].queryDictionary;
+            NSMutableArray *artistArray = [[NSMutableArray alloc] init];
             NSArray * responseArray = responseObject[@"artists"][@"items"];
             for (NSDictionary *artistDict in responseArray){
                 SAArtist * artist =[[SAArtist alloc] initWithDictionary:artistDict];
                 [artistArray addObject:artist];
             }
-            NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
+            NSSortDescriptor *sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
             [artistArray sortUsingDescriptors:@[sortPop]];
             success(artistArray,queryDict[@"query"]);
             
@@ -67,21 +67,21 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
         success(nil,nil);
     }
     else{
-        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=track&market=US",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        NSString *request = [NSString stringWithFormat:@"%@?q=%@*&type=track&market=US",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
         self.lastRequest = request;
 
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary * queryDict = [NSURL URLWithString:responseObject[@"tracks"][@"href"]].queryDictionary;
-            NSMutableArray * trackArray = [[NSMutableArray alloc] init];
+            NSDictionary *queryDict = [NSURL URLWithString:responseObject[@"tracks"][@"href"]].queryDictionary;
+            NSMutableArray *trackArray = [[NSMutableArray alloc] init];
             NSArray * responseArray = responseObject[@"tracks"][@"items"];
             for (NSDictionary *trackDict in responseArray){
-                SATrack * track=[[SATrack alloc] initWithDictionary:trackDict];
+                SATrack *track=[[SATrack alloc] initWithDictionary:trackDict];
                 [trackArray addObject:track];
             }
 
-            NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
+            NSSortDescriptor *sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
             [trackArray sortUsingDescriptors:@[sortPop]];
             success(trackArray,queryDict[@"query"]);
             
@@ -98,29 +98,29 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
         success(nil,query);
     }
     else{
-        NSString * request = [NSString stringWithFormat:@"%@?q=%@*&type=track,artist&market=US",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
+        NSString *request = [NSString stringWithFormat:@"%@?q=%@*&type=track,artist&market=US",BASE_URL_SPOTIFY,[query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
         self.lastRequest = request;
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary * queryDict = [NSURL URLWithString:responseObject[@"tracks"][@"href"]].queryDictionary;
+            NSDictionary *queryDict = [NSURL URLWithString:responseObject[@"tracks"][@"href"]].queryDictionary;
             if (!queryDict)
                 queryDict = [NSURL URLWithString:responseObject[@"artists"][@"href"]].queryDictionary;
             
-            NSMutableArray * allArray = [[NSMutableArray alloc] init];
-            NSArray * artistArray = responseObject[@"artists"][@"items"];
+            NSMutableArray *allArray = [[NSMutableArray alloc] init];
+            NSArray *artistArray = responseObject[@"artists"][@"items"];
             for (NSDictionary *artistDict in artistArray){
                 SAArtist * artist =[[SAArtist alloc] initWithDictionary:artistDict];
                 [allArray addObject:artist];
             }
-            NSArray * trackArray = responseObject[@"tracks"][@"items"];
+            NSArray *trackArray = responseObject[@"tracks"][@"items"];
             for (NSDictionary *trackDict in trackArray){
-                SATrack * track=[[SATrack alloc] initWithDictionary:trackDict];
+                SATrack *track=[[SATrack alloc] initWithDictionary:trackDict];
                 [allArray addObject:track];
             }
 
             //sort by popularity
-            NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
+            NSSortDescriptor *sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
             [allArray sortUsingDescriptors:@[sortPop]];
             success(allArray,queryDict[@"query"]);
             
@@ -142,8 +142,8 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:request parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray * bioData = responseObject[@"response"][@"biographies"];
-        NSString * bio = @"Bio not found. Sorry!";
+        NSArray *bioData = responseObject[@"response"][@"biographies"];
+        NSString *bio = @"Bio not found. Sorry!";
         for (NSDictionary *bioDict in bioData){
             //Find a bio, that's not truncated.
             if (![bioDict valueForKey:@"truncated"]){
@@ -168,23 +168,23 @@ NSString const * BASE_URL_ECHONEST = @"http://developer.echonest.com/api/v4/arti
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:[NSString stringWithFormat:@"%@&offset=%@",self.lastRequest,offset] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary * queryDict = [NSURL URLWithString:responseObject[@"tracks"][@"href"]].queryDictionary;
+        NSDictionary *queryDict = [NSURL URLWithString:responseObject[@"tracks"][@"href"]].queryDictionary;
         if (!queryDict)
             queryDict = [NSURL URLWithString:responseObject[@"artists"][@"href"]].queryDictionary;
         
-        NSMutableArray * allArray = [[NSMutableArray alloc] init];
-        NSArray * artistArray = responseObject[@"artists"][@"items"];
+        NSMutableArray *allArray = [[NSMutableArray alloc] init];
+        NSArray *artistArray = responseObject[@"artists"][@"items"];
         for (NSDictionary *artistDict in artistArray){
             SAArtist * artist =[[SAArtist alloc] initWithDictionary:artistDict];
             [allArray addObject:artist];
         }
-        NSArray * trackArray = responseObject[@"tracks"][@"items"];
+        NSArray *trackArray = responseObject[@"tracks"][@"items"];
         for (NSDictionary *trackDict in trackArray){
-            SATrack * track=[[SATrack alloc] initWithDictionary:trackDict];
+            SATrack *track=[[SATrack alloc] initWithDictionary:trackDict];
             [allArray addObject:track];
         }
         //sort by popularity
-        NSSortDescriptor * sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
+        NSSortDescriptor *sortPop = [NSSortDescriptor sortDescriptorWithKey:@"popularity" ascending:NO];
         [allArray sortUsingDescriptors:@[sortPop]];
         success(allArray,queryDict[@"query"]);
         
