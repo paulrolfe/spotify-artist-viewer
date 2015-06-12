@@ -121,8 +121,8 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
                                                                       [self.tableView reloadData];
                                                                   }
                                                                   failure:^(NSError *error) {
-                                                                      UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                                                                      [errorAlert show];
+//                                                                      UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//                                                                      [errorAlert show];
                                                                       
                                                                   }];
 }
@@ -211,9 +211,9 @@ NSString const * SEARCH_WELCOME_STRING = @"Search by artist, track, or album abo
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView{
     [self.searchBar resignFirstResponder];
     
-    // Fetch new challenges when the bottom row is 3 away from the end of the results.
+    // Fetch new challenges when the bottom row is 10 away from the end of the results.
     NSIndexPath * bottomPath =(NSIndexPath *)self.tableView.indexPathsForVisibleRows.lastObject;
-    if (bottomPath.row>=self.searchResults.count-3){
+    if (bottomPath.row>=self.searchResults.count-10){
         [self fetchNextResults];
     }
 }

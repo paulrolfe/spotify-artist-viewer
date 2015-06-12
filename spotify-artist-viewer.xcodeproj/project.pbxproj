@@ -98,10 +98,10 @@
 		1C6696A81B2B174C00C6DD1C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1C6696A91B2B174C00C6DD1C /* SAArtistViewController.h */,
-				1C6696AA1B2B174C00C6DD1C /* SAArtistViewController.m */,
 				1C6696AB1B2B174C00C6DD1C /* SASearchViewController.h */,
 				1C6696AC1B2B174C00C6DD1C /* SASearchViewController.m */,
+				1C6696A91B2B174C00C6DD1C /* SAArtistViewController.h */,
+				1C6696AA1B2B174C00C6DD1C /* SAArtistViewController.m */,
 				1C6696AD1B2B174C00C6DD1C /* SATrackViewController.h */,
 				1C6696AE1B2B174C00C6DD1C /* SATrackViewController.m */,
 			);
